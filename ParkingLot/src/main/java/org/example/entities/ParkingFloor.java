@@ -13,7 +13,7 @@ public class ParkingFloor {
     int number;
     Map<Vehicle.Type, List<ParkingSpot>> parkingSpots;
 
-    public void printStatus() {
+    public Map<Vehicle.Type, Integer> emptySpots() {
         Map<Vehicle.Type, Integer> emptySpots = new HashMap<>();
         parkingSpots.entrySet().forEach(vehicleType -> {
             int thisTypeEmptySpots = 0;
@@ -24,11 +24,7 @@ public class ParkingFloor {
             }
             emptySpots.put(vehicleType.getKey(), thisTypeEmptySpots);
         });
-
-        System.out.println("Floor " + number + " : EMPTY SLOTS");
-        parkingSpots.entrySet().forEach(vehicleType -> {
-            System.out.println(vehicleType.getKey() + " : " + emptySpots.get(vehicleType.getKey()));
-        });
+        return emptySpots;
     }
 
     /**
@@ -56,7 +52,7 @@ public class ParkingFloor {
     }
 
     public static class Builder {
-        int number;
+        Integer number;
         Map<Vehicle.Type, Integer> spotCapacity;
 
         public Builder() {
@@ -74,6 +70,10 @@ public class ParkingFloor {
         }
 
         public ParkingFloor build() {
+            if (number == null) {
+                throw new IllegalStateException("Floor number is not set");
+            }
+
             Map<Vehicle.Type, List<ParkingSpot>> parkingSpots = new HashMap<>();
 
             for (Map.Entry<Vehicle.Type, Integer> entry : spotCapacity.entrySet()) {

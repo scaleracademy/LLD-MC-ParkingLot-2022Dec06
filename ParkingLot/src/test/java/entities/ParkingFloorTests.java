@@ -5,8 +5,7 @@ import org.example.entities.ParkingFloor;
 import org.example.entities.Vehicle;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingFloorTests {
 
@@ -22,6 +21,13 @@ public class ParkingFloorTests {
         var floor3 = builder.setNumber(3).build();
 
         assertNotNull(floor1);
+    }
+
+    @Test
+    void throwsErrorOnBuildingFloorWithoutNumber() {
+        assertThrows(IllegalStateException.class, () -> {
+            new ParkingFloor.Builder().build();
+        });
     }
 
     @Test
