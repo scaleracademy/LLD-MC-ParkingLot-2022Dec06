@@ -18,6 +18,7 @@ public class ParkingLotTests {
         var parkingLot = new ParkingLot.Builder(2)
                 .addFloor(floorBuilder.setNumber(0).build())
                 .addFloor(floorBuilder.setNumber(1).build())
+                .setDefaultParkingFees(30)
                 .build();
 
         assertNotNull(parkingLot);

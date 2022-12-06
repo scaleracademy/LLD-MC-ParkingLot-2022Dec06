@@ -84,4 +84,7 @@ public class ParkingFloor {
 
     }
 
+    // TODO: add exit method  (inside that, free up emptyspots +1)
+    // TODO: add entry method (inside that, emptyspots should reduce)
+
 }
