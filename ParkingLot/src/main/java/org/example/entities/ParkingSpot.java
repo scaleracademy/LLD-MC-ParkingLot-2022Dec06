@@ -2,6 +2,9 @@ package org.example.entities;
 
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 public class ParkingSpot {
 
@@ -24,5 +27,13 @@ public class ParkingSpot {
         }
         this.vehicle = vehicle;
         return true;
+    }
+
+    public static List<ParkingSpot> createSpots(Vehicle.Type type, int capacity) {
+        List<ParkingSpot> parkingSpots = new ArrayList<>();
+        for (int i = 0; i < capacity; i++) {
+            parkingSpots.add(new ParkingSpot(i, type, null));
+        }
+        return parkingSpots;
     }
 }
