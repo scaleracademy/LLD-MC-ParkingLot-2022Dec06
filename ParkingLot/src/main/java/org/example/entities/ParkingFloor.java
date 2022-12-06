@@ -13,13 +13,53 @@ public class ParkingFloor {
     int number;
     Map<Vehicle.Type, List<ParkingSpot>> parkingSpots;
 
+    public void printStatus() {
+        Map<Vehicle.Type, Integer> emptySpots = new HashMap<>();
+        parkingSpots.entrySet().forEach(vehicleType -> {
+            int thisTypeEmptySpots = 0;
+            for (ParkingSpot spot : vehicleType.getValue()) {
+                if (!spot.isOccupied()) {
+                    thisTypeEmptySpots++;
+                }
+            }
+            emptySpots.put(vehicleType.getKey(), thisTypeEmptySpots);
+        });
+
+        System.out.println("Floor " + number + " : EMPTY SLOTS");
+        parkingSpots.entrySet().forEach(vehicleType -> {
+            System.out.println(vehicleType.getKey() + " : " + emptySpots.get(vehicleType.getKey()));
+        });
+    }
+
+    /**
+     * @param type type of vehicle for which we want to find empty slot
+     * @return the nearest empty slot (or -1 if no empty slot)
+     */
+    public int getFirstFreeSpot(Vehicle.Type type) {
+        List<ParkingSpot> spots = parkingSpots.get(type);
+        for (int i = 0; i < spots.size(); i++) {
+            if (!spots.get(i).isOccupied()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean park(Vehicle vehicle) {
+        int spotNumber = getFirstFreeSpot(vehicle.type);
+        if (spotNumber == -1) {
+            System.out.println("No empty spot for " + vehicle.type);
+            return false;
+        }
+        ParkingSpot spot = parkingSpots.get(vehicle.type).get(spotNumber);
+        return spot.park(vehicle);
+    }
 
     public static class Builder {
         int number;
         Map<Vehicle.Type, Integer> spotCapacity;
 
-        public Builder(int number) {
-            this.number = number;
+        public Builder() {
             this.spotCapacity = new HashMap<>();
         }
 
@@ -28,7 +68,7 @@ public class ParkingFloor {
             return this;
         }
 
-        public Builder addSlots(Vehicle.Type type, int capacity) {
+        public Builder addSpots(Vehicle.Type type, int capacity) {
             spotCapacity.put(type, capacity);
             return this;
         }

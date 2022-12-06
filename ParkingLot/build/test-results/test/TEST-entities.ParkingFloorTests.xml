@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="entities.ParkingFloorTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-06T16:32:24" hostname="Arnavs-MacBook-Pro.local" time="0.008">
+  <properties/>
+  <testcase name="canFindFirstFreeSpot()" classname="entities.ParkingFloorTests" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
